@@ -1,4 +1,4 @@
-public abstract class SiteParser {
+public abstract class SiteScraper {
     //go to draft websites and scrape data
     //parses data based on format of website
     //different parser for different sites

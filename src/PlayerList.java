@@ -34,4 +34,33 @@ public class PlayerList {
         }
     }
 
+    public void printPlayer(String name){
+        boolean found = false;
+        for(Player player : playerList){
+            if(player.getName().contains(name)){
+                System.out.println("Rank: \t\tName: \t\t\tPosition: \t\t\tTeam:");
+                System.out.println(player.getName() + "\t\t\t" +player.getPosition() + "\t\t\t" + player.getTeam());
+                return;
+            }
+        }
+
+        System.out.println("No players were found.");
+    }
+
+    public void printPlayer(String position, String team){
+        boolean found = false;
+        for(Player player : playerList){
+            if(player.getPosition().equalsIgnoreCase(position) && player.getTeam().equalsIgnoreCase(team)){
+                if(!found) {
+                    System.out.println("Rank: \t\tName: \t\t\tPosition: \t\t\tTeam:");
+                }
+                found = true;
+                System.out.println(player.getName() + "\t\t\t" +player.getPosition() + "\t\t\t" + player.getTeam());
+            }
+        }
+
+        if(!found){
+            System.out.println("No players were found.");
+        }
+    }
 }

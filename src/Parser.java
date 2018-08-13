@@ -9,41 +9,30 @@ import java.util.Scanner;
 
 public class Parser {
 
-    public void parseData(String input, PlayerList playerList) {
+    public Parser(PlayerList playerList) {
+        String input = "C:\\Users\\Alex\\Desktop\\file.csv";
 //        File file = new File(input);
-
         String csv = "";
         String[] csvArray;
-//        try (Scanner sc = new Scanner(file)) {
-//            csv = sc.next();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
         try {
             csv = new String(Files.readAllBytes(Paths.get(input)), StandardCharsets.UTF_8);
-        }
-        catch (IOException ex){
+            csvArray = csv.split(",");
+
+            for (int a = 0; a < csvArray.length - 6; a += 6) {
+                //try and find player
+                //if yes add to existing player
+                //if not create new player
+                Player player = playerList.getPlayer(Arrays.copyOfRange(csvArray, a, a + 3));
+                if (player != null) {
+                    player.addStat(Arrays.copyOfRange(csvArray, a + 3, a + 6));
+                } else {
+                    player = new Player(Arrays.copyOfRange(csvArray, a, a + 3));
+                    player.addStat(Arrays.copyOfRange(csvArray, a + 3, a + 6));
+                    playerList.addPlayer(player);
+                }
+            }
+        } catch (IOException ex) {
             System.out.println("IOException");
         }
-
-        csvArray = csv.split(",");
-
-        for (int a = 0; a < csvArray.length - 6 ; a+= 6){
-            //try and find player
-                //if yes add to existing player
-            //if not create new player
-            Player player = playerList.getPlayer(Arrays.copyOfRange(csvArray, a, a+3));
-            if(player != null){
-                player.addStat(Arrays.copyOfRange(csvArray, a+3, a+6));
-            }
-            else{
-                player = new Player(Arrays.copyOfRange(csvArray, a, a+3));
-                player.addStat(Arrays.copyOfRange(csvArray, a+3, a+6));
-                playerList.addPlayer(player);
-            }
-        }
-
     }
-
-
 }
